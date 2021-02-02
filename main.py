@@ -3,6 +3,7 @@ def main():
     print('=================================')
     passphrase = input('Please enter a passphrase: ')
     clear_text = input('Please enter something to encrypt: ', )
+    passphrase1 = bytearray(passphrase.encode('utf-8'))
     print(clear_text)
 
     b = []
@@ -18,9 +19,15 @@ def main():
     for i in range(0, len(clear_bytes), 4):
         b.append(clear_bytes[i: i + 4])
 
+
+
     for b_array in b:
-        b_array[1], b_array[3] = b_array[3], b_array[1]
-        b_array[0], b_array[2] = b_array[2], b_array[0]
+        pos1 = passphrase1[0] % len(b_array)
+        pos2 = passphrase1[1] % len(b_array)
+        pos3 = passphrase1[2] % len(b_array)
+        pos4 = passphrase1[3] % len(b_array)
+        b_array[pos1], b_array[pos3] = b_array[pos3], b_array[pos1]
+        b_array[pos2], b_array[pos4] = b_array[pos4], b_array[pos2]
 
     print(b)
 
@@ -51,8 +58,12 @@ def main():
     print(x)
 
     for b_array in x:
-        b_array[1], b_array[3] = b_array[3], b_array[1]
-        b_array[0], b_array[2] = b_array[2], b_array[0]
+        pos1 = passphrase1[0] % len(b_array)
+        pos2 = passphrase1[1] % len(b_array)
+        pos3 = passphrase1[2] % len(b_array)
+        pos4 = passphrase1[3] % len(b_array)
+        b_array[pos1], b_array[pos3] = b_array[pos3], b_array[pos1]
+        b_array[pos2], b_array[pos4] = b_array[pos4], b_array[pos2]
 
     text = ''
     for i in x:
